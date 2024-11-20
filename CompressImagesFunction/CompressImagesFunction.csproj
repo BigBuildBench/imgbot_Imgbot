@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <AzureFunctionsVersion>v4</AzureFunctionsVersion>
+    <UseAppHost>false</UseAppHost>
+  </PropertyGroup>
+
+  <Target Name="CopyNativeBinaries" AfterTargets="Build">
+    <ItemGroup>
+      <NativeBinary Include="$(TargetDir)runtimes/linux-x64/native/libgit2-b7bad55.so" />
+      <NativeBinary Include="$(TargetDir)runtimes/linux-x64/native/Magick.Native-Q16-x64.dll.so" />
+    </ItemGroup>
+    <Copy SourceFiles="@(NativeBinary)" DestinationFiles="@(NativeBinary->'$(TargetDir)bin/%(Filename)%(Extension)')" />
+  </Target>
+
+  <ItemGroup>
+    <None Update="host.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="local.settings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <Import Project="../ImgBot.targets" />
+
+</Project>

@@ -1,0 +1,6 @@
+{
+    "ignoredFiles": [
+    	"Test/*"
+    ],
+    "aggressiveCompression": false
+}
